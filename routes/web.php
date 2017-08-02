@@ -17,4 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Costumers
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Admins
+Route::prefix('admin')->group(function(){
+  Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
+  Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
+  //ojo,este va al final para evitar bugs
+  Route::get('/', 'AdminController@index')->name('admin.dashboard');
+});
