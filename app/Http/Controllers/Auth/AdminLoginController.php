@@ -9,18 +9,18 @@ use Auth;
 class AdminLoginController extends Controller
 {
   public function __construct(){
-      $this->middleware('guest:admin');
+      $this->middleware('guest:admin',['except' => ['logout']]);
   }
 
   public function showLoginForm(){
     return view('auth.admin-login');
   }
 
-  public function login(){
+  public function login(Request $request){
     //validating the form data
       $this->validate($request,[
         'email' => 'required|email',
-        'password' => 'required1min:6',
+        'password' => 'required|min:6',
       ]);
     //attempt to log the user in (search if credentials matches with someone, second parameter remembers  the credentials)
     //returns true if succsesful
@@ -34,5 +34,11 @@ class AdminLoginController extends Controller
     }
     //if not, redirect again
     return true;
+  }
+
+
+  public function logout(){
+      Auth::guard('admin')->logout();
+      return redirect('/');
   }
 }

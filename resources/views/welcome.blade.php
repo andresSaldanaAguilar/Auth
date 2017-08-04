@@ -87,6 +87,11 @@
                     <a href="https://laracasts.com">Facebook</a>
                     <a href="https://laravel-news.com">Instagram</a>
                 </div>
+                <div class="panel">
+                    @component('components.who')
+
+                    @endcomponent
+                </div>
             </div>
         </div>
     </body>
